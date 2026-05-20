@@ -1,0 +1,33 @@
+# --- Java & Flink Binaries ---
+*.jar
+*.war
+*.ear
+flink/flink-sql-connector-kafka-*.jar
+
+# --- Docker & Local Data Volumes ---
+.docker/
+*/data/
+*/logs/
+*.log
+
+# --- Python & Environment Caches ---
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.env
+.venv
+env/
+venv/
+ENV/
+
+# --- IDEs & System Files ---
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+Thumbs.db
+.DS_Store
