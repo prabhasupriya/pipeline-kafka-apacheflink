@@ -25,8 +25,8 @@ pipeline-kafka-apachaflink/
 └── dashboard/
     ├── Dockerfile           # Streamlit UI runtime definition
     └── app.py               # Live-updating feature store validation dashboard
-
-    ## 1. System Requirements & Hardware Allocation
+```
+## 1. System Requirements & Hardware Allocation
 
 * **Docker Desktop & Docker Compose** (v2.0+)
 * **Windows Subsystem for Linux (WSL2)** with at least 6GB allocated RAM.
@@ -38,7 +38,7 @@ To prevent `Insufficient system resources` or `WSL EOF` crash loops during image
 [wsl2]
 memory=6GB
 processors=4
-
+```
 ## 1. Deployment & Execution Steps
 
 ### Step 1: Recover Frozen Background Engines (If locked up)
@@ -47,25 +47,26 @@ If the system throws `Insufficient system resources exist to complete the reques
 ```cmd
 wsl --shutdown
 ## 1. Deployment & Execution Steps
-
+```
 ### Step 2: Clear Stale Container Caches and Volumes
 Wipe old data definitions, hanging cache volumes, and stopped processes completely before generating the fresh stack:
 
 ```bash
 docker-compose down --remove-orphans
 docker system prune -a --volumes -f
+```
 ### Step 3: Build and Launch Cluster Runtime
 Build the modified, high-speed Python image layers and execute all target tracking modules in background mode:
 
 ```bash
 docker-compose up -d --build
-
+```
 ### Step 4: Track Active Engine Interoperability
 Ensure every required service container is operating healthily and passing operational loop requirements:
 
 ```bash
 docker-compose ps
-
+```
 ## 1. Port Mappings & Service Verification
 
 Once verification commands indicate complete startup states, check the pipeline through the following interfaces:
@@ -78,10 +79,12 @@ Once verification commands indicate complete startup states, check the pipeline 
 
 ---
 
-## 2. Troubleshooting Guide
+##  Troubleshooting Guide
 
 ### Issue: "0 Running Jobs" but TaskManager is Active
 * **Cause:** The pipeline wrapper script executed standard native initialization code inside a standalone process environment rather than through the Flink driver interface. This causes local dependency lookup failures before compilation ends.
 * **Fix:** Use the Flink execution command framework natively mapped inside the `docker-compose.yml` service specification block:
   ```bash
   flink run -m flink-jobmanager:8081 -C file:///opt/flink/usrlib/flink-sql-connector-kafka-3.0.1-1.17.jar -py pipeline.py
+  ```
+  * **youtude video-[watch here](https://youtu.be/XKDj9lEk0SQ)
